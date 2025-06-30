@@ -22,12 +22,15 @@ module clint import clint_reg_pkg::*; #(
     input  reg_req_t            reg_req_i,
     output reg_rsp_t            reg_rsp_o,
     input  logic                rtc_i,       // Real-time clock in (usually 32.768 kHz)
-    output logic [${cores-1}:0] timer_irq_o, // Timer interrupts
-    output logic [${cores-1}:0] ipi_o        // software interrupt (a.k.a inter-process-interrupt)
+    output logic [${cores-1}:0][63:0] mtime_o,
+    output logic [${cores-1}:0]	      timer_irq_o, // Timer interrupts
+    output logic [${cores-1}:0]       ipi_o        // software interrupt (a.k.a inter-process-interrupt)
 );
 
     logic [63:0]               mtime_q;
     logic [${cores-1}:0][63:0] mtimecmp_q;
+    assign mtime_o = mtime_q;
+    
     // increase the timer
     logic increase_timer;
 
